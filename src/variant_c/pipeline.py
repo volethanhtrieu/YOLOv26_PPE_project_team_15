@@ -36,7 +36,7 @@ class VariantCBackend:
         self.device = device
 
         
-        self.person_conf = 0.45
+        self.person_conf = 0.50
 
         
         self.ppe_conf = conf
