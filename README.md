@@ -284,3 +284,4 @@ Before running, edit `VIDEO_PATH`, `MODEL_PATH`, `USE_TRACKING`, `USE_ASSOCIATIO
 New work should be based on the active `feature/*` branch for that module and merged through a pull request. Do not start new development from `backup/ppe-association-remote` or the legacy `Event-Engine` branch.
 
 No repository-wide license file is currently present. Do not assume permission to redistribute source datasets, derived annotations, model weights, or third-party assets; review their individual licenses before publication or reuse.
+
