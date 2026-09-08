@@ -55,3 +55,18 @@ Desktop.ini
 # Local test videos - keep folder only
 assets/*
 !assets/.gitkeep
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+data/*.db*
+evidence/*.jpg
+outputs/
+logs/*.csv
+weights/*.pt
+*.pt
+*.mp4
+*.db
+*.db-shm
+*.db-wal
+.ruff_cache/
