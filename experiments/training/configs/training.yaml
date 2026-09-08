@@ -1,0 +1,67 @@
+dataset:
+  data_yaml: null
+  manifest: null
+  expected_images: 4844
+  expected_splits:
+    train: 3874
+    val: 484
+    test: 486
+  expected_sources:
+    CHVG4: 1698
+    PICTOR-yolo: 78
+    SH17: 68
+    SHEL4: 3000
+  expected_names:
+    0: person
+    1: head
+    2: helmet
+    3: vest
+
+training:
+  model: yolo26l.pt
+  epochs: 150
+  imgsz: 960
+  batch: 4
+  device: 0
+  workers: 8
+  patience: 30
+  seed: 42
+  deterministic: true
+  amp: true
+  cache: false
+  save_period: 10
+  output_root: outputs
+  run_name: yolo26l_training_seed42
+
+  # Optional Ultralytics train() arguments. Leave empty to use the defaults
+  # supplied by the pinned Ultralytics version in requirements.txt.
+  overrides: {}
+
+  # Example overrides (remove the braces above and uncomment only what is needed):
+  # overrides:
+  #   optimizer: AdamW
+  #   lr0: 0.001
+  #   weight_decay: 0.0005
+  #   cos_lr: true
+  #   close_mosaic: 10
+  #   mosaic: 1.0
+  #   mixup: 0.0
+  #   fliplr: 0.5
+
+wandb:
+  enabled: true
+  project: ml4u-ppe-yolo26
+  entity: null
+  mode: online
+  resume: never
+  tags:
+    - yolo26l
+    - training
+    - baseline
+    - seed42
+    - chvg4
+    - shel4
+    - sh17
+    - pictor-negatives
+
+resume_checkpoint: null
