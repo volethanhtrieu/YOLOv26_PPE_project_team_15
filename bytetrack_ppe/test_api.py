@@ -1,4 +1,6 @@
 from app import create_app
+import argparse
+from smoke_health import valid_health
 
 
 def has_legacy_glass_field(value):
@@ -14,6 +16,9 @@ def has_legacy_glass_field(value):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--allow-empty", action="store_true")
+    args = parser.parse_args()
     app = create_app()
     app.config.update(
         TESTING=True
@@ -36,7 +41,10 @@ def main():
             url,
         )
 
-        if response.status_code != 200:
+        if url == "/api/health":
+            if not valid_health(response, allow_empty=args.allow_empty):
+                failed = True
+        elif response.status_code != 200:
             failed = True
         elif response.is_json and has_legacy_glass_field(response.get_json()):
             print("FAIL: legacy glass field exposed")

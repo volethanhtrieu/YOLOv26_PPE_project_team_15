@@ -5,7 +5,7 @@ model:
   imgsz: 640
   confidence: 0.25
   iou: 0.50
-  device: "0"  
+  device: "cpu"  # Set to "0" explicitly for a CUDA GPU.
 
 tracking:
   enabled: true
@@ -44,7 +44,7 @@ storage:
   save_evidence: true
 
 api:
-  host: 0.0.0.0
+  host: 127.0.0.1
   port: 5000
   jpeg_quality: 85
 

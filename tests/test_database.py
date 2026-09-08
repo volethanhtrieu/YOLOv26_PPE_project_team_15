@@ -2,6 +2,15 @@ from backend.database import EventRepository
 from backend.types import EventDecision
 
 
+def test_close_releases_database_and_can_be_called_twice(tmp_path):
+    path = tmp_path / "close.db"
+    repository = EventRepository(path)
+    repository.close()
+    repository.close()
+    path.unlink()
+    assert not path.exists()
+
+
 def decision(action, key="event-1", details=None):
     return EventDecision(
         action=action,

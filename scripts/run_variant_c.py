@@ -24,6 +24,7 @@ def main():
 
     parser.add_argument("--model", required=True)
     parser.add_argument("--source", required=True)
+    parser.add_argument("--device", default="cpu")
 
     parser.add_argument(
         "--output",
@@ -45,7 +46,7 @@ def main():
 
     backend = VariantCBackend(
         model_path=args.model,
-        device=0,
+        device=args.device,
         conf=args.conf,
     )
 

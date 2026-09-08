@@ -21,6 +21,13 @@ class EventRepository:
         self._local = threading.local()
         self._initialize()
 
+    def close(self) -> None:
+        """Release this thread's connection; call from its owning worker."""
+        connection = getattr(self._local, "connection", None)
+        if connection is not None:
+            connection.close()
+            self._local.connection = None
+
     def _connection(self) -> sqlite3.Connection:
         connection = getattr(self._local, "connection", None)
         if connection is None:
