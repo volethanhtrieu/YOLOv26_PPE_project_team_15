@@ -1,26 +1,17 @@
-# Python
 .venv/
-venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.ipynb_checkpoints/
 
-# Environment and secrets
-.env
-.env.*
-*.key
-
-# Raw and generated datasets
 data/raw/*
 data/interim/*
 data/processed/*
-
+data/quarantine/*
 !data/raw/.gitkeep
 !data/interim/.gitkeep
 !data/processed/.gitkeep
+!data/quarantine/.gitkeep
 
-# Downloaded archives
 *.zip
 *.rar
 *.7z
@@ -29,16 +20,27 @@ data/processed/*
 
 # Model checkpoints and exports
 *.pt
-*.pth
-*.onnx
+
+# Local credentials (templates may be committed)
+.env
+.env.*
+!.env.example
+*.key
 *.engine
 *.torchscript
-
-# Training outputs
+*.pth
+*.onnx
 runs/
 outputs/
 artifacts/
 wandb/
+
+reports/generated/*
+!reports/generated/.gitkeep
+!reports/generated/chvg/
+reports/generated/chvg/*
+!reports/generated/chvg/*.csv
+!reports/generated/chvg/*.json
 
 # Logs and cache
 *.log
@@ -51,3 +53,20 @@ Desktop.ini
 # Editors
 .vscode/
 .idea/
+# Variant C local test assets
+
+# Local test videos - keep folder only
+assets/*
+!assets/.gitkeep
+data/*.db*
+evidence/*.jpg
+logs/*.csv
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.m4v
+*.db
+*.db-shm
+*.db-wal
+.ruff_cache/

@@ -1,0 +1,92 @@
+profile: D_full_system
+
+model:
+  path: weights/best.pt
+  imgsz: 640
+  confidence: 0.25
+  iou: 0.50
+  device: "cpu"  # Set to "0" explicitly for a CUDA GPU.
+
+tracking:
+  enabled: true
+  tracker: bytetrack.yaml
+  persist: true
+  missing_timeout_seconds: 3.0
+
+# Model CHVG4 có  4 lớp: person, head, helmet, vest.
+classes:
+  person: [person]
+  head: [head]
+  helmet: [helmet]
+  vest: [vest]
+
+association:
+  enabled: true
+  mode: roi
+  head_ratio: 0.35
+  torso_top_ratio: 0.20
+  torso_bottom_ratio: 0.85
+  min_item_inside_ratio: 0.30
+
+event:
+  enabled: true
+  mode: majority
+  violation_seconds: 2.0
+  recovery_seconds: 1.0
+  voting_window_seconds: 2.5
+  voting_ratio: 0.70
+  min_voting_samples: 5
+  required_ppe: [helmet, vest]
+
+storage:
+  database: data/detections.db
+  evidence_dir: evidence
+  save_evidence: true
+
+api:
+  host: 127.0.0.1
+  port: 5000
+  jpeg_quality: 85
+
+ablation_profiles:
+  A_yolo:
+    tracking:
+      enabled: false
+    association:
+      enabled: false
+      mode: full_body
+    event:
+      enabled: false
+
+  B_tracking:
+    tracking:
+      enabled: true
+    association:
+      enabled: false
+      mode: full_body
+    event:
+      enabled: false
+
+  C_association:
+    tracking:
+      enabled: true
+    association:
+      enabled: true
+      mode: roi
+    event:
+      enabled: false
+
+  D_full_system:
+    tracking:
+      enabled: true
+    association:
+      enabled: true
+      mode: roi
+    event:
+      enabled: true
+      mode: majority
+      violation_seconds: 2.0
+      recovery_seconds: 1.0
+      voting_window_seconds: 2.5
+      voting_ratio: 0.70
+      min_voting_samples: 5

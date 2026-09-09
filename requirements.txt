@@ -1,0 +1,15 @@
+Flask>=3.0,<4.0
+lap>=0.5.12
+numpy>=1.24
+opencv-python>=4.8
+PyYAML>=6.0
+torch>=2.0
+ultralytics==8.4.104
+wandb>=0.18,<1.0
+streamlit>=1.36
+requests>=2.31
+pandas>=2.0
+Pillow>=10.0
+imageio-ffmpeg>=0.5
+psutil>=5.9
+waitress>=3.0,<4
