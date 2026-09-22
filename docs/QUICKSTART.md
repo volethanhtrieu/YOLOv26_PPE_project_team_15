@@ -27,6 +27,10 @@ python ppe.py dashboard
 ```
 
 Open http://localhost:8501 and use API URL http://127.0.0.1:5000.
+Before creating a dashboard job, place a trusted four-class checkpoint at
+bytetrack_ppe/weights/candidates/CHVG4-best.pt. The job UI does not currently
+offer a model/device selector; it uses the runner defaults (including CPU).
+An --model argument used in a separate CLI run does not configure dashboard jobs.
 Create a video job, inspect the isolated preview, publish deliberately, then use
 Review Queue / Events. Human decisions remain separate from AI status.
 Outputs are under bytetrack_ppe/outputs/.
@@ -46,6 +50,9 @@ Review defaults: detection confidence 0.10, PPE association 0.20, tiles 1×1.
 Tracker config: bytetrack_ppe/configs/bytetrack_ppe.yaml.
 These are inherited operating settings, not claimed optimal thresholds.
 W&B is optional; only upload videos when sharing is permitted.
+CLI runs are not registered as dashboard jobs. Inspect their files in the
+reported run directory; the dashboard's interactive job preview/publish flow
+is for jobs created through the application.
 
 ## Research Event Engine and Association
 
@@ -59,7 +66,7 @@ python ppe.py association --model "C:\models\best.pt" --source "C:\videos\test.m
 ```
 
 Research output: outputs/annotated.mp4, logs/ CSV, evidence/ images and
-data/detections.db. Association output: outputs/variant_c.mp4 and variant_c.jsonl.
+data/detections.db. Association output: outputs/variant_c.mp4 and outputs/variant_c.jsonl.
 Do not run event-api and review-api simultaneously on port 5000.
 
 ## Data and training

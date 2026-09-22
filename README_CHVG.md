@@ -1,5 +1,11 @@
 # CHVG five-class dataset preparation
 
+> **Intermediate data workflow.** This guide reproduces the earlier CHVG5
+> preparation and noise experiments. Its split creation is a separate step
+> from the later four-class conversion, which preserves the existing split.
+> For final inference/training, continue with the [four-class dataset guide](data/README.md).
+> Do not use the five-class training example below as the final four-class recipe.
+
 This pipeline processes only CHVG Version 1. SHEL5K is outside this member's scope.
 
 ## Target classes

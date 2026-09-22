@@ -1,6 +1,9 @@
 # Variant C â€” ByteTrack + PPE Association
 
-This document describes the current **four-class YOLOv26l Variant C backend**.
+This document describes the **four-class Variant C backend**.
+Use the [root environment and launcher](docs/QUICKSTART.md) on main_sub.
+The final-training package documents YOLO26L; verify the actual supplied
+checkpoint rather than inferring architecture from its filename.
 
 ## Pipeline
 
@@ -116,7 +119,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 .\.venv\Scripts\Activate.ps1
 
 python -m pip install --upgrade pip
-python -m pip install ultralytics opencv-python lap torch torchvision torchaudio wandb
+python -m pip install -r requirements-dev.txt
 ```
 
 ## Verify model
@@ -195,13 +198,9 @@ W&B is used for runtime and pipeline observability. It does not replace personâ€
 4. **Missing-detection proxies**  
    `no_helmet` / `no_vest` must not be interpreted as validated safety events without temporal/event ground truth.
 
-## Final naming
+## Model provenance
 
-The current project/model family is:
-
-```text
-YOLOv26 / YOLOv26l
-```
-
-Do not describe the final system as YOLOv8, YOLOv8l, or YOLOv8x.
+The final-training package documents YOLO26L; the CHVG baseline script retains
+YOLOv8 defaults. Report the architecture of the checkpoint actually used.
+See [training workflows](docs/TRAINING_PATHS.md) for the distinction.
 

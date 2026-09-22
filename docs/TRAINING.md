@@ -18,10 +18,11 @@ Essential instructions for training the four-class PPE detector:
 - A Weights & Biases account and API key if online logging is enabled.
 
 Detailed host, Docker, local Python, CUDA, and W&B setup is documented in
-[INSTALL.md](INSTALL.md). Common failures are covered in
-[docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md). Changes intended for the
-team repository should follow [CONTRIBUTING.md](CONTRIBUTING.md). Image
-publication is described in [docs/CONTAINER_IMAGE.md](docs/CONTAINER_IMAGE.md).
+[INSTALL.md](../experiments/training/INSTALL.md). Common failures are covered in
+[training troubleshooting](../experiments/training/docs/TROUBLESHOOTING.md).
+Changes intended for the team repository should follow
+[CONTRIBUTING.md](../CONTRIBUTING.md). Image publication is described in
+[CONTAINER_IMAGE.md](../experiments/training/docs/CONTAINER_IMAGE.md).
 
 ## 1. Enter the training directory
 
@@ -114,6 +115,17 @@ nano .env
 Set `DATASET_DIR`, `MODEL_DIR`, `OUTPUT_DIR`, and the W&B values in `.env`.
 `MODEL_DIR` must contain `yolo26l.pt`. The launcher automatically reads `.env`.
 Never commit `.env` or the W&B API key.
+
+The manual Docker commands below also use these shell variables. Load your own
+shell-compatible .env in the terminal before running them:
+
+```bash
+set -a
+source .env
+set +a
+```
+
+Only source a file you control: shell sourcing executes its contents.
 
 ## 6. Validate the dataset
 

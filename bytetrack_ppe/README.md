@@ -1,5 +1,12 @@
 # ByteTrack PPE Safety Monitoring
 
+> **Bản tích hợp main_sub:** cài môi trường ở root và dùng
+> [ppe.py qua hướng dẫn chung](../docs/QUICKSTART_VI.md).
+> Các lệnh trực tiếp bên dưới giả định bạn đang ở thư mục bytetrack_ppe.
+> Bootstrap/lock Python 3.14 là cách tái tạo môi trường lịch sử, không phải
+> bước cài thêm sau môi trường root. Các kết quả PASS bên dưới là ghi nhận
+> lịch sử; xem [phạm vi kiểm thử](../docs/TESTING.md) cho bản tích hợp.
+
 Ứng dụng local xử lý video công trường theo pipeline:
 
 ```text
@@ -235,8 +242,9 @@ inputs hoặc video test cần dùng
 published outputs nếu muốn giữ event/review hiện tại
 ```
 
-Thông tin filename, dung lượng và SHA-256 của checkpoint đã kiểm thử nằm trong
-`weights/candidates/README.md`.
+Ghi filename, dung lượng và SHA-256 của checkpoint khi bàn giao vào
+`weights/candidates/README.md`. File này là nơi ghi metadata; bản repo sạch
+chưa chứa một release manifest checkpoint hoàn chỉnh.
 
 ## 6. Tài liệu kỹ thuật
 

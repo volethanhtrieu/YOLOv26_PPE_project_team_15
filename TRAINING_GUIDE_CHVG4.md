@@ -1,5 +1,9 @@
 # Hướng dẫn train và bàn giao model CHVG4
 
+> **Workflow baseline CHVG4.** Tài liệu này mô tả script train có mặc định YOLOv8,
+> không phải recipe train cuối YOLO26L. Đọc [bảng chọn workflow](docs/TRAINING_PATHS.md)
+> trước khi bắt đầu. Các số liệu lịch sử không tự áp dụng cho checkpoint mới.
+
 Tài liệu này dành cho người nhận code để chuẩn bị dataset, fine-tune YOLOv8,
 theo dõi thí nghiệm bằng Weights & Biases (W&B), chọn checkpoint và bàn giao
 weight cho backend ByteTrack.

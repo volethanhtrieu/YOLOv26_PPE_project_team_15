@@ -1,33 +1,65 @@
-# Dataset preparation
+# Data preparation and versions
 
-This project uses two source datasets:
+Dataset images and annotations are external inputs, not distributed in this
+repository. Source code, validation reports and manifests document preparation.
 
-1. CHVG Version 1
-   Source: https://universe.roboflow.com/hussnain-ahmed-xtgq8/chvg-dataset/dataset/1
-   Export format: YOLOv8
+## Canonical inference schema
 
-2. SHEL5K Version 4
-   Source: https://data.mendeley.com/datasets/9rcv8mm682/4
-   Original annotation format: Pascal VOC XML
+| ID | Class | Annotation meaning |
+| ---: | --- | --- |
+| 0 | person | Person/worker |
+| 1 | head | Visible bare or unhelmeted head |
+| 2 | helmet | Helmet/hard hat |
+| 3 | vest | Safety/high-visibility vest |
 
-Raw and processed datasets are not stored in GitHub.
+## Stages
 
-Local directories:
+| Stage | Purpose | Reference |
+| --- | --- | --- |
+| CHVG5 preparation | Inspect source data, merge helmet colours, create initial splits; retain glass | [Historical preparation guide](../README_CHVG.md) |
+| CHVG4 conversion | Create a new four-class dataset; remove glass; preserve source images/splits/coordinates | [Conversion report](../reports/dataset/chvg4_conversion_report.md) |
+| Final merged dataset | Combine adjudicated sources using the final manifest | [Dataset card](../experiments/training/docs/DATASET_CARD.md) |
 
-data/raw/chvg/
-data/raw/shel5k/
-data/interim/
-data/processed/
+CHVG4 conversion reports 1,698 images with a 1,358/170/170 split.
+The final merged dataset card reports 4,844 images with a 3,874/484/486 split,
+from CHVG4, SHEL4, SH17 and Pictor. Its CHVG component uses the later manifest
+split 1,358/169/171. These are different dataset stages, not interchangeable
+statistics. Use the manifest for the exact training run.
 
-Final runtime schema:
+The final model card has outstanding artifact/metric fields. Dataset validation
+PASS is not a model-accuracy result.
 
-- `0 person`
-- `1 head`
-- `2 helmet`
-- `3 vest`
+## Conversion and validation
 
-`glass` is removed during conversion and is not a runtime class.
+Run from repository root with absolute paths:
 
-Dataset conversion and validation scripts are stored in `scripts/data/`.
-Training is refused unless `validation_report.json` is present and has status
-`PASS`. Dataset source information and checksums belong in `data/manifests/`.
+```powershell
+python ppe.py convert --source-yaml "C:\datasets\chvg8\data.yaml" --output "C:\datasets\chvg4"
+python ppe.py validate --source-yaml "C:\datasets\chvg8\data.yaml" --target-yaml "C:\datasets\chvg4\data_4class.yaml" --report-dir "C:\datasets\chvg4\validation"
+```
+
+The source must have valid available splits. Do not fabricate a val/test split
+because a YAML references files that are absent.
+
+Original CHVG mapping:
+
+- blue, red, white, yellow → helmet.
+- glass → remove the annotation row.
+- head, person, vest → reindex to the canonical IDs.
+
+Validation compares source and target image identities, class counts, label
+syntax, bbox coordinate tokens and split membership. The source dataset is not
+overwritten. The CHVG baseline trainer requires a passing conversion report;
+the final-training package has its own validation workflow.
+
+## Storage and handoff
+
+Use data/raw/, data/interim/, data/processed/ and data/quarantine/ for local data.
+Keep generated images/labels and dataset archives outside version control.
+Provide source/version, manifest, class mapping, split policy, checksums and
+validation output when handing data to another member.
+
+Review source licenses and annotation semantics before reusing or redistributing
+data. The [final dataset card](../experiments/training/docs/DATASET_CARD.md)
+and [source notes](../experiments/training/docs/THIRD_PARTY_DATASETS.md) describe
+provenance. A project software license does not substitute for dataset terms.
